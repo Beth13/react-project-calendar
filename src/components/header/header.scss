@@ -10,6 +10,7 @@
   padding: 0 16px;
   background-color: #f0ffff;
   cursor: pointer;
+  border: 2px solid black;
 
   &:hover {
     background-color: #87cefa;
@@ -44,6 +45,7 @@
   &__today-btn {
     background-color: #f0ffff;
     cursor: pointer;
+    border: 2px solid black;
 
     &:hover {
       background-color: #87cefa;
