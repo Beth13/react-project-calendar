@@ -1,0 +1,9 @@
+.delete-btn {
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    background-color: red;
+  }
+}

@@ -13,5 +13,10 @@
     position: relative;
     flex: 1;
     border-left: 1px solid #eee;
+
+    &_today {
+      background-color: #4682b4;
+      color: white;
+    }
   }
 }

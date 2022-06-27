@@ -1,27 +1,46 @@
-import React from 'react';
-import Hour from '../hour/Hour';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './day.scss';
+import Line from "../line/Line";
+import Hour from "../hour/Hour";
 
-const Day = ({ dataDay, dayEvents }) => {
+import "./day.scss";
+
+const Day = ({ dataDay, dayEvents, deleteEvent }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
 
+  const isLine =
+    dataDay.getDate() === new Date().getDate() &&
+    dataDay.getMonth() === new Date().getMonth();
+
   return (
     <div className="calendar__day" data-day={dataDay}>
+      {isLine && <Line />}
+
       {hours.map((hour) => {
-        //getting all events from the day we will render
         const hourEvents = dayEvents.filter(
           (event) => event.dateFrom.getHours() === hour
         );
 
         return (
-          <Hour key={dataDay + hour} dataHour={hour} hourEvents={hourEvents} />
+          <Hour
+            key={dataDay + hour}
+            dataHour={hour}
+            deleteEvent={deleteEvent}
+            hourEvents={hourEvents}
+          />
         );
       })}
     </div>
   );
+};
+
+Day.propTypes = {
+  dataDay: PropTypes.object.isRequired,
+  dayEvents: PropTypes.array,
+  deleteEvent: PropTypes.func,
 };
 
 export default Day;
