@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Header from "./components/header/Header.jsx";
 import Calendar from "./components/calendar/Calendar.jsx";
 
-import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
+import {
+  getWeekStartDate,
+  generateWeekRange,
+  getWeekMonthString,
+} from "../src/utils/dateUtils.js";
 
 import "./common.scss";
 import moment from "moment";
@@ -74,8 +78,8 @@ const App = () => {
         changeWeekToNext={changeWeekToNext}
         changeWeekToPrev={changeWeekToPrev}
         changeToCurrentWeek={changeToCurrentWeek}
-        currentMonth={`${moment(new Date(weekStartDate)).format("MMM")}`}
         createEvent={createEvent}
+        weekDates={weekDates}
       />
       <Calendar
         weekDates={weekDates}

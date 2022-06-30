@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import Modal from "../modal/Modal";
 
 import "./header.scss";
+import { getWeekMonthString } from "../../utils/dateUtils";
 
 const Header = ({
   changeWeekToNext,
   changeWeekToPrev,
   changeToCurrentWeek,
-  currentMonth,
   createEvent,
+  weekDates,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -48,7 +49,9 @@ const Header = ({
         >
           <i className="fas fa-chevron-right"></i>
         </button>
-        <span className="navigation__displayed-month">{currentMonth}</span>
+        <span className="navigation__displayed-month">
+          {getWeekMonthString(weekDates)}
+        </span>
       </div>
     </header>
   );
@@ -58,8 +61,8 @@ Header.propTypes = {
   changeWeekToNext: PropTypes.func,
   changeWeekToPrev: PropTypes.func,
   changeToCurrentWeek: PropTypes.func,
-  currentMonth: PropTypes.string.isRequired,
   createEvent: PropTypes.func,
+  weekDates: PropTypes.array.isRequired,
 };
 
 export default Header;
