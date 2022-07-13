@@ -10,7 +10,7 @@ const Navigation = ({ weekDates }) => {
     <header className="calendar__header">
       {weekDates.map((dayDate) => (
         <div
-          key={Math.random()}
+          key={dayDate.getDay()}
           className={
             dayDate.getDate() === new Date().getDate() &&
             dayDate.getMonth() === new Date().getMonth()

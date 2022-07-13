@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import Header from "./components/header/Header.jsx";
 import Calendar from "./components/calendar/Calendar.jsx";
 
-import {
-  getWeekStartDate,
-  generateWeekRange,
-  getWeekMonthString,
-} from "../src/utils/dateUtils.js";
+import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
 
 import "./common.scss";
-import moment from "moment";
 import {
   fetchEventsList,
   createEventServer,

@@ -10,7 +10,9 @@ const Modal = ({ visible, closeModal, createEvent }) => {
     title: "",
     date: moment(new Date()).format("yyyy-MM-DD"),
     startTime: moment(new Date()).format("HH:MM"),
-    endTime: "",
+    endTime: moment(new Date().setHours(new Date().getHours() + 1)).format(
+      "HH:MM"
+    ),
     description: "",
   });
 
@@ -37,6 +39,16 @@ const Modal = ({ visible, closeModal, createEvent }) => {
     };
 
     createEvent(newEvent);
+    setFormData({
+      id: "",
+      title: "",
+      date: moment(new Date()).format("yyyy-MM-DD"),
+      startTime: moment(new Date()).format("HH:MM"),
+      endTime: moment(new Date().setHours(new Date().getHours() + 1)).format(
+        "HH:MM"
+      ),
+      description: "",
+    });
     closeModal(event);
   };
 
