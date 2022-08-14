@@ -1,24 +1,23 @@
-import moment from "moment";
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import moment from 'moment';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import "./modal.scss";
+import './modal.scss';
+import { createEvent } from '../../gateway/gateway';
 
-const Modal = ({ visible, closeModal, createEvent }) => {
+const Modal = ({ visible, closeModal, events, setEvents }) => {
   const [formData, setFormData] = useState({
-    id: "",
-    title: "",
-    date: moment(new Date()).format("yyyy-MM-DD"),
-    startTime: moment(new Date()).format("HH:MM"),
-    endTime: moment(new Date().setHours(new Date().getHours() + 1)).format(
-      "HH:MM"
-    ),
-    description: "",
+    id: '',
+    title: '',
+    date: moment(new Date()).format('yyyy-MM-DD'),
+    startTime: moment(new Date()).format('HH:MM'),
+    endTime: moment(new Date().setHours(new Date().getHours() + 1)).format('HH:MM'),
+    description: '',
   });
 
   const [disabledBtn, setDisabledBtn] = useState(true);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
 
     setFormData({
@@ -27,7 +26,7 @@ const Modal = ({ visible, closeModal, createEvent }) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
 
     const newEvent = {
@@ -38,21 +37,21 @@ const Modal = ({ visible, closeModal, createEvent }) => {
       dateTo: new Date(`${formData.date} ${formData.endTime}`).getTime(),
     };
 
-    createEvent(newEvent);
-    setFormData({
-      id: "",
-      title: "",
-      date: moment(new Date()).format("yyyy-MM-DD"),
-      startTime: moment(new Date()).format("HH:MM"),
-      endTime: moment(new Date().setHours(new Date().getHours() + 1)).format(
-        "HH:MM"
-      ),
-      description: "",
+    createEvent(newEvent).then(newEvent => {
+      setEvents([
+        ...events,
+        {
+          ...newEvent,
+          dateFrom: new Date(newEvent.dateFrom),
+          dateTo: new Date(newEvent.dateTo),
+        },
+      ]);
     });
+
     closeModal(event);
   };
 
-  const isFormValidCheck = (event) => {
+  const isFormValidCheck = event => {
     const isTitleDone = event.target.title !== formData.title;
     const isStartTimeDone = event.target.startTime !== formData.startTime;
     const isEndTimeDone = event.target.endTime !== formData.endTime;
@@ -72,11 +71,7 @@ const Modal = ({ visible, closeModal, createEvent }) => {
             <button className="create-event__close-btn" onClick={closeModal}>
               +
             </button>
-            <form
-              className="event-form"
-              onSubmit={handleSubmit}
-              onInput={isFormValidCheck}
-            >
+            <form className="event-form" onSubmit={handleSubmit} onInput={isFormValidCheck}>
               <input
                 type="text"
                 name="title"
@@ -116,11 +111,7 @@ const Modal = ({ visible, closeModal, createEvent }) => {
                 onChange={handleChange}
                 value={formData.description}
               ></textarea>
-              <button
-                type="submit"
-                className="event-form__submit-btn"
-                disabled={disabledBtn}
-              >
+              <button type="submit" className="event-form__submit-btn" disabled={disabledBtn}>
                 Create
               </button>
             </form>

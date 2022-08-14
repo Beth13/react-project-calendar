@@ -1,42 +1,39 @@
-const baseUrl = "https://6272c6bfa6522e24ac3e537b.mockapi.io/v1/events";
+const baseUrl = 'https://6272c6bfa6522e24ac3e537b.mockapi.io/v1/events';
 
-export const fetchEventsList = () =>
+export const fetchEvents = () =>
   fetch(baseUrl)
-    .then((response) => {
+    .then(response => {
       if (response.ok) {
         return response.json();
-      } else {
-        throw new Error();
       }
+      throw new Error();
     })
     .catch(() => alert("Internal Server Error. Can't display events"));
 
-export const createEventServer = (eventData) =>
+export const createEvent = eventData =>
   fetch(baseUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(eventData),
   })
-    .then((response) => {
+    .then(response => {
       if (response.ok) {
         return response.json();
-      } else {
-        throw new Error();
       }
+      throw new Error();
     })
     .catch(() => alert("Internal Server Error. Can't display events"));
 
-export const deleteEventServer = (eventId) =>
+export const deleteEvent = eventId =>
   fetch(`${baseUrl}/${eventId}`, {
-    method: "DELETE",
+    method: 'DELETE',
   })
-    .then((response) => {
+    .then(response => {
       if (response.ok) {
         return response.json();
-      } else {
-        throw new Error();
       }
+      throw new Error();
     })
     .catch(() => alert("Internal Server Error. Can't display events"));

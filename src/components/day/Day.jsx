@@ -1,34 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Line from "../line/Line";
-import Hour from "../hour/Hour";
+import RedLine from '../redline/RedLine';
+import Hour from '../hour/Hour';
 
-import "./day.scss";
+import './day.scss';
 
-const Day = ({ dataDay, dayEvents, deleteEvent }) => {
+const Day = ({ dataDay, dayEvents, setEvents, events }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
 
-  const isLine =
-    dataDay.getDate() === new Date().getDate() &&
-    dataDay.getMonth() === new Date().getMonth();
+  const isRedLine =
+    dataDay.getDate() === new Date().getDate() && dataDay.getMonth() === new Date().getMonth();
 
   return (
     <div className="calendar__day" data-day={dataDay}>
-      {isLine && <Line />}
+      {isRedLine && <RedLine />}
 
-      {hours.map((hour) => {
-        const hourEvents = dayEvents.filter(
-          (event) => event.dateFrom.getHours() === hour
-        );
+      {hours.map(hour => {
+        const hourEvents = dayEvents.filter(event => event.dateFrom.getHours() === hour);
 
         return (
           <Hour
             key={dataDay + hour}
             dataHour={hour}
-            deleteEvent={deleteEvent}
+            setEvents={setEvents}
+            events={events}
             hourEvents={hourEvents}
           />
         );

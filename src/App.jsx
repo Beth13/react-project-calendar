@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Header from "./components/header/Header.jsx";
-import Calendar from "./components/calendar/Calendar.jsx";
+import React, { useEffect, useState } from 'react';
+import Header from './components/header/Header.jsx';
+import Calendar from './components/calendar/Calendar.jsx';
 
-import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
+import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
 
-import "./common.scss";
-import {
-  fetchEventsList,
-  createEventServer,
-  deleteEventServer,
-} from "./gateway/gateway.js";
+import './common.scss';
+import { fetchEvents } from './gateway/gateway.js';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
@@ -17,17 +13,13 @@ const App = () => {
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   const changeWeekToNext = () => {
-    const nextWeek = new Date(weekStartDate).setDate(
-      weekStartDate.getDate() + 7
-    );
+    const nextWeek = new Date(weekStartDate).setDate(weekStartDate.getDate() + 7);
 
     setWeekStartDate(new Date(nextWeek));
   };
 
   const changeWeekToPrev = () => {
-    const prevWeek = new Date(weekStartDate).setDate(
-      weekStartDate.getDate() - 7
-    );
+    const prevWeek = new Date(weekStartDate).setDate(weekStartDate.getDate() - 7);
 
     setWeekStartDate(new Date(prevWeek));
   };
@@ -35,37 +27,18 @@ const App = () => {
   const changeToCurrentWeek = () => setWeekStartDate(new Date());
 
   useEffect(() => {
-    fetchEventsList().then((events) => {
+    fetchEvents().then(events => {
       const newEvents = events.map(
-        (event) =>
+        event =>
           (event = {
             ...event,
             dateFrom: new Date(event.dateFrom),
             dateTo: new Date(event.dateTo),
-          })
+          }),
       );
       setEvents(newEvents);
     });
   }, []);
-
-  const createEvent = (newEvent) => {
-    createEventServer(newEvent).then((newEvent) => {
-      setEvents([
-        ...events,
-        {
-          ...newEvent,
-          dateFrom: new Date(newEvent.dateFrom),
-          dateTo: new Date(newEvent.dateTo),
-        },
-      ]);
-    });
-  };
-
-  const deleteEvent = (eventId) => {
-    deleteEventServer(eventId).then(() => {
-      setEvents(events.filter((event) => event.id !== eventId));
-    });
-  };
 
   return (
     <>
@@ -73,14 +46,11 @@ const App = () => {
         changeWeekToNext={changeWeekToNext}
         changeWeekToPrev={changeWeekToPrev}
         changeToCurrentWeek={changeToCurrentWeek}
-        createEvent={createEvent}
-        weekDates={weekDates}
-      />
-      <Calendar
-        weekDates={weekDates}
         events={events}
-        deleteEvent={deleteEvent}
+        setEvents={setEvents}
+        weekDates={weekDates}
       />
+      <Calendar weekDates={weekDates} events={events} setEvents={setEvents} />
     </>
   );
 };

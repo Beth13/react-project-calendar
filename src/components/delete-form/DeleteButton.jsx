@@ -1,12 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import "./delete-btn.scss";
+import './delete-btn.scss';
+import { deleteEvent } from '../../gateway/gateway';
 
-const DeleteButton = ({ isDelete, deleteEvent, id }) => {
+const DeleteButton = ({ isDelete, setEvents, events, id }) => {
   return (
     isDelete && (
-      <button className="delete-btn" onClick={() => deleteEvent(id)}>
+      <button
+        className="delete-btn"
+        onClick={() =>
+          deleteEvent(id).then(() => {
+            setEvents(events.filter(event => event.id !== id));
+          })
+        }
+      >
         <i className="fas fa-trash"></i>
       </button>
     )

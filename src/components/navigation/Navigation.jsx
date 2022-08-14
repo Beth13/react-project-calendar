@@ -1,21 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import "./navigation.scss";
+import './navigation.scss';
 
-import { days } from "../../utils/dateUtils.js";
+import { days } from '../../utils/dateUtils.js';
 
 const Navigation = ({ weekDates }) => {
   return (
     <header className="calendar__header">
-      {weekDates.map((dayDate) => (
+      {weekDates.map(dayDate => (
         <div
           key={dayDate.getDay()}
           className={
             dayDate.getDate() === new Date().getDate() &&
             dayDate.getMonth() === new Date().getMonth()
-              ? "calendar__day-label day-label calendar__day_today"
-              : "calendar__day-label day-label"
+              ? 'calendar__day-label day-label calendar__day_today'
+              : 'calendar__day-label day-label'
           }
         >
           <span className="day-label__day-name">{days[dayDate.getDay()]}</span>

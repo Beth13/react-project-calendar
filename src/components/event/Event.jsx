@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import DeleteButton from "../delete-form/DeleteButton";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import DeleteButton from '../delete-form/DeleteButton';
+import PropTypes from 'prop-types';
 
-import "./event.scss";
+import './event.scss';
 
-const Event = ({ height, marginTop, title, time, deleteEvent, id }) => {
+const Event = ({ height, marginTop, title, time, setEvents, id, events }) => {
   const eventStyle = {
     height,
     marginTop,
@@ -16,13 +16,8 @@ const Event = ({ height, marginTop, title, time, deleteEvent, id }) => {
 
   return (
     <>
-      <DeleteButton isDelete={isDelete} deleteEvent={deleteEvent} id={id} />
-      <div
-        style={eventStyle}
-        data-id={id}
-        className="event"
-        onClick={handleDeleteBtn}
-      >
+      <DeleteButton isDelete={isDelete} setEvents={setEvents} events={events} id={id} />
+      <div style={eventStyle} data-id={id} className="event" onClick={handleDeleteBtn}>
         <div className="event__title">{title}</div>
         <div className="event__time">{time}</div>
       </div>

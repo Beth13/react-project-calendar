@@ -1,6 +1,6 @@
-import moment from "moment";
+import moment from 'moment';
 
-export const getWeekStartDate = (date) => {
+export const getWeekStartDate = date => {
   const dateCopy = new Date(date);
   const dayOfWeek = dateCopy.getDay();
   const difference =
@@ -12,7 +12,7 @@ export const getWeekStartDate = (date) => {
   return new Date(monday.getFullYear(), monday.getMonth(), monday.getDate());
 };
 
-export const generateWeekRange = (startDate) => {
+export const generateWeekRange = startDate => {
   const result = [];
   for (let i = 0; i < 7; i += 1) {
     const base = new Date(startDate);
@@ -22,40 +22,38 @@ export const generateWeekRange = (startDate) => {
 };
 
 export const getDateTime = (date, time) => {
-  const [hours, minutes] = time.split(":");
+  const [hours, minutes] = time.split(':');
   const withHours = new Date(new Date(date).setHours(Number(hours)));
   const withMinutes = new Date(new Date(withHours).setMinutes(Number(minutes)));
   return withMinutes;
 };
 
-export const formatMins = (mins) => {
+export const formatMins = mins => {
   return mins < 10 ? `0${mins}` : mins;
 };
 
-export const getWeekMonthString = (weekDates) => {
+export const getWeekMonthString = weekDates => {
   const weekStart = weekDates[0];
   const weekEnd = weekDates[weekDates.length - 1];
   const areDatesInSameMonth = weekStart.getMonth() === weekEnd.getMonth();
 
   return areDatesInSameMonth
-    ? moment(new Date(weekStart)).format("MMM")
-    : `${moment(new Date(weekStart)).format("MMM")} – ${moment(
-        new Date(weekEnd)
-      ).format("MMM")}`;
+    ? moment(new Date(weekStart)).format('MMM')
+    : `${moment(new Date(weekStart)).format('MMM')} – ${moment(new Date(weekEnd)).format('MMM')}`;
 };
 
-export const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
